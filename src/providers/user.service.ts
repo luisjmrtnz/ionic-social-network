@@ -14,5 +14,9 @@ export class UserService {
     constructor(
         private af: AngularFire,
         private authService: AuthService){}
+        
+    getUser(uid: string) {
+        return this.af.database.object(`/users/${uid}`);
+    }
 
 }

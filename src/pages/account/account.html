@@ -13,11 +13,10 @@
 </ion-header>
 
 <ion-content *ngIf="user">
-  <ion-card>
+  <ion-card padding class="img-card">
       <img *ngIf="user?.avatar" [src]="user?.avatar">
-      <img *ngIf="!user?.avatar" src="images/defaultAvatar.png">
       <div padding>
-        <button full primary (click)="updatePicture()">Update Picture</button>
+        <button ion-button block color="primary">Update Picture</button>
       </div>
   </ion-card>
   <ion-card>
@@ -36,11 +35,8 @@
         <ion-textarea type="text" [(ngModel)]="user.about"></ion-textarea>
     </ion-item>
     <div padding>
-        <button full primary (click)="updateProfile()">Update Profile</button>
+        <button ion-button block color="secondary" (click)="updateProfile()">Update Profile</button>
+        <button ion-button block color="danger" (click)="logout()">Logout</button>
     </div>
   </ion-card>
-
-<div padding>
-  <button full dark (click)="logout()">Logout</button>
-</div>
 </ion-content>

@@ -43,7 +43,7 @@ import { UserService } from '../providers/user.service';
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
-    UserService 
+    UserService
   ]
 })
 export class AppModule {}
