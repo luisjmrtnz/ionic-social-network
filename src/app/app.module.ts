@@ -1,12 +1,17 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
-import { AboutPage } from '../pages/about/about';
+import { PeoplePage } from '../pages/people/people';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
 import { AccountPage } from '../pages/account/account';
+import { PostComponent } from '../components/post/post';
+import { CreateAccountPage } from '../pages/create-account/create-account';
+import { PostPage } from '../pages/post/post';
+import { UserProfilePage } from '../pages/user-profile/user-profile';
+import { TimeAgoPipe, FromUnixPipe } from 'angular2-moment';
 
 /* Third Party */
 import { AngularFireModule } from 'angularfire2';
@@ -15,16 +20,23 @@ import { FireBaseConfig } from '../config/firebase';
 /* Providers */
 import { AuthService } from '../providers/auth.service';
 import { UserService } from '../providers/user.service';
+import { SocialService } from '../providers/social.service';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
+    PeoplePage,
     ContactPage,
     HomePage,
     TabsPage,
     LoginPage,
-    AccountPage
+    AccountPage,
+    CreateAccountPage,
+    PostComponent,
+    PostPage,
+    UserProfilePage,
+    TimeAgoPipe,
+    FromUnixPipe
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -33,17 +45,21 @@ import { UserService } from '../providers/user.service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
+    PeoplePage,
     ContactPage,
     HomePage,
     TabsPage,
     LoginPage,
-    AccountPage
+    AccountPage,
+    PostPage,
+    CreateAccountPage,
+    UserProfilePage
   ],
   providers: [
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
-    UserService
+    UserService,
+    SocialService
   ]
 })
 export class AppModule {}

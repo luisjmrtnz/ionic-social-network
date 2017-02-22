@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      {{ ( user | async)?.username}}
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-card>
+      <img *ngIf="(user | async)?.avatar" [src]="(user | async)?.avatar">
+  </ion-card>
+
+  <ion-card>
+        <ion-item text-wrap>{{ (user | async)?.username}}
+         <ion-note item-right>
+           Username
+         </ion-note> 
+        </ion-item>
+        <ion-item text-wrap><ion-icon secondary item-left name="person"></ion-icon>{{( user | async )?.name}}</ion-item>
+        <ion-item text-wrap><ion-icon secondary item-left name="mail"></ion-icon>{{ (user | async)?.email}}</ion-item>
+        <ion-item text-wrap *ngIf="(user | async)?.about"><ion-icon secondary item-left name="create"></ion-icon><p *ngIf="(user | async)?.about">{{(user | async)?.about}}</p></ion-item>
+        <div padding>
+            <button ion-button block color="primary" (click)="followUser(user)">Follow</button>
+        </div>
+</ion-card>
+</ion-content>

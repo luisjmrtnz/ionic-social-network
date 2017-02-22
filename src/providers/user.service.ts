@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
-import { AngularFire, FirebaseAuthState, FirebaseListObservable } from 'angularfire2';
-import * as firebase from 'firebase';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/switchMap';
-
-import { AuthService } from './auth.service';
-import { User } from '../models/user.model';
+import { AngularFire  } from 'angularfire2';
 
 @Injectable()
 
 export class UserService {
     constructor(
-        private af: AngularFire,
-        private authService: AuthService){}
+        private af: AngularFire ){}
         
     getUser(uid: string) {
         return this.af.database.object(`/users/${uid}`);
     }
+
+    searchUser(username) {
+        let query = {
+          orderByChild: 'username'
+        };
+        // username is given
+        if(username) {
+          query['equalTo'] = username;
+        }
+        let users = this.af.database.list('/users', {
+          query: query
+        });
+        return users;
+   }
 
 }

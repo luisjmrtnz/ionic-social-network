@@ -1,0 +1,29 @@
+<!--
+  Generated template for the People page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>People</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="about">
+  <ion-searchbar (ionInput)="getUser($event)" placeholder="Search with username">
+  </ion-searchbar>
+
+  <ion-list>
+    <ion-item text-wrap *ngFor="let user of users | async" [hidden]="uid === user?.$key">
+      <ion-avatar item-left>
+        <img *ngIf="user?.avatar" [src]="user?.avatar">
+      </ion-avatar>
+      <h2>{{(user)?.name}}</h2>
+      <button ion-button item-right color="secondary" (click)="userProfile(user)">Profile</button>
+      <button ion-button item-right color="primary" (click)="followUser(user)">Follow</button>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -17,7 +17,7 @@
 
 
 <ion-content padding>
-    <form [formGroup]="userForm" (ngSubmit)="onLogin()">
+    <form [formGroup]="userForm">
       <ion-item>
         <ion-label floating>Email</ion-label>
         <ion-input type="text" formControlName="email"></ion-input>
@@ -27,13 +27,11 @@
         <ion-input  type="password" formControlName="password"></ion-input>
       </ion-item>
       <div padding>
-        <button ion-button block type="submit" [disabled]="!userForm.valid">Login</button>
+        <button ion-button block  (click)="onLogin()">Login</button>
+        <button ion-button block color="light" (click)="createAccount()">
+          <ion-icon name="person"></ion-icon>
+            &nbsp;Create an Account
+        </button>
       </div>
-      <div padding>
-            <button ion-button full clear secondary (click)="createAccount()">
-                <ion-icon name="person"></ion-icon>
-                &nbsp;Create an Account
-            </button>
-        </div>
     </form>
 </ion-content>

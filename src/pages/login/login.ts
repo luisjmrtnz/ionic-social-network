@@ -3,6 +3,7 @@ import { NavController, NavParams, LoadingController, ToastController } from 'io
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFire } from 'angularfire2';
 
+import { CreateAccountPage } from '../create-account/create-account';
 import { AuthService } from '../../providers/auth.service';
 
 /*
@@ -82,4 +83,7 @@ export class LoginPage {
     this.loader.dismiss();
   }
 
+  createAccount() {
+    this.navCtrl.push(CreateAccountPage);
+  }
 }
