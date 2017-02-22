@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/filter';
 import { NavController, ModalController } from 'ionic-angular';
 
 import { PostPage } from '../post/post';
@@ -24,6 +25,7 @@ export class HomePage {
     
   ionViewDidLoad() {
     this.feeds = this.auth.getAuth()
+      .filter(userInfo => userInfo.auth.uid)
       .map(userInfo => userInfo.auth.uid)
       .switchMap(uid => this.social.getFeed(uid));
   }
