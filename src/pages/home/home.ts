@@ -25,7 +25,7 @@ export class HomePage {
     
   ionViewDidLoad() {
     this.feeds = this.auth.getAuth()
-      .filter(userInfo => userInfo.auth.uid)
+      .filter(userInfo => userInfo !== null)
       .map(userInfo => userInfo.auth.uid)
       .switchMap(uid => this.social.getFeed(uid));
   }

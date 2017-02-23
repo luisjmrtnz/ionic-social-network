@@ -5,17 +5,17 @@
   Ionic pages and navigation.
 -->
 <ion-header>
-  <ion-navbar primary>
+  <ion-navbar>
     <ion-title>
       Account
     </ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content *ngIf="user" padding>
-  <ion-card padding class="img-card">
+<ion-content>
+  <ion-card class="img-card">
       <img *ngIf="user?.avatar" [src]="user?.avatar">
-      <div padding>
+      <div>
         <button ion-button block color="primary">Update Picture</button>
       </div>
   </ion-card>
@@ -34,7 +34,7 @@
         <ion-label floating>About me</ion-label>
         <ion-textarea type="text" [(ngModel)]="user.about"></ion-textarea>
     </ion-item>
-    <div padding>
+    <div>
         <button ion-button block color="secondary" (click)="updateProfile()">Update Profile</button>
         <button ion-button block color="danger" (click)="logout()">Logout</button>
     </div>

@@ -24,7 +24,7 @@ import { UserService } from '../../providers/user.service';
   templateUrl: 'account.html'
 })
 export class AccountPage {
-  user;
+  user = { name: '', about: ''};
   loader;
 
   constructor(
@@ -39,7 +39,7 @@ export class AccountPage {
   ionViewDidLoad() {
     this.initLoader();
     this.presentLoader();
-    
+  
     this.auth.getAuth()
       .filter(userInfo => userInfo != null)
       .map(userInfo => userInfo.auth.uid)
