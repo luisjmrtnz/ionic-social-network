@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ItemSliding } from 'ionic-angular';
 
 import { UserService } from '../../providers/user.service';
 import { UserProfilePage } from '../user-profile/user-profile';
@@ -27,8 +27,9 @@ export class PeoplePage {
     this.users = this.userService.searchUser("");
   }
   
-  userProfile(user) {
-    this.navCtrl.push(UserProfilePage, { uid: user.$key})
+  userProfile(user, itemSliding: ItemSliding) {
+    itemSliding.close();
+    this.navCtrl.push(UserProfilePage, { uid: user.$key});
   }
 
 }

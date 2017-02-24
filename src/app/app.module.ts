@@ -21,6 +21,7 @@ import { FireBaseConfig } from '../config/firebase';
 import { AuthService } from '../providers/auth.service';
 import { UserService } from '../providers/user.service';
 import { SocialService } from '../providers/social.service';
+import { UtilService } from '../providers/util.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,7 @@ import { SocialService } from '../providers/social.service';
     FromUnixPipe
   ],
   imports: [
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(MyApp, { swipeBackEnabled: true }),
     AngularFireModule.initializeApp(FireBaseConfig)
   ],
   bootstrap: [IonicApp],
@@ -59,7 +60,8 @@ import { SocialService } from '../providers/social.service';
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     AuthService,
     UserService,
-    SocialService
+    SocialService,
+    UtilService
   ]
 })
 export class AppModule {}

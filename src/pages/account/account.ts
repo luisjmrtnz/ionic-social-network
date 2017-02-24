@@ -77,4 +77,9 @@ export class AccountPage {
     this.loader.dismiss();
   }
   
+  updateProfile() {
+    this.userService.updateProfile(this.user)
+      .subscribe(value => console.log(`updated ${value}`), err => console.log(err));
+  }
+  
 }

@@ -17,13 +17,27 @@
   </ion-searchbar>
 
   <ion-list>
-    <ion-item text-wrap *ngFor="let user of users | async" [hidden]="uid === user?.$key">
-      <ion-avatar item-left>
-        <img *ngIf="user?.avatar" [src]="user?.avatar">
-      </ion-avatar>
-      <h2>{{(user)?.name}}</h2>
-      <button ion-button item-right color="secondary" (click)="userProfile(user)">Profile</button>
-      <button ion-button item-right color="primary" (click)="followUser(user)">Follow</button>
-    </ion-item>
+    <ion-item-sliding 
+      *ngFor="let user of users | async" [hidden]="uid === user?.$key"
+      #itemSliding>
+      <ion-item text-wrap>
+        <ion-avatar item-left>
+          <img *ngIf="user?.avatar" [src]="user?.avatar">
+        </ion-avatar>
+        <h2>{{(user)?.name}}</h2>
+      </ion-item>
+      <ion-item-options side="left">
+        <button ion-button color="primary" (click)="userProfile(user, itemSliding)">
+          <ion-icon name="person"></ion-icon>
+          Profile
+        </button>
+      </ion-item-options>
+      <ion-item-options side="right">
+        <button ion-button color="secondary">
+          <ion-icon name="person-add"></ion-icon>
+          Follow
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
 </ion-content>

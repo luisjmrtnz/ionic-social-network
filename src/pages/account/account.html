@@ -13,13 +13,13 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="img-card">
+  <ion-card class="img-card" padding>
       <img *ngIf="user?.avatar" [src]="user?.avatar">
       <div>
         <button ion-button block color="primary">Update Picture</button>
       </div>
   </ion-card>
-  <ion-card>
+  <ion-card padding>
     <ion-item>
         <ion-label floating>Username</ion-label>
         <ion-input type="text" disabled=true [value]="user?.username"></ion-input>
@@ -34,7 +34,7 @@
         <ion-label floating>About me</ion-label>
         <ion-textarea type="text" [(ngModel)]="user.about"></ion-textarea>
     </ion-item>
-    <div>
+    <div padding>
         <button ion-button block color="secondary" (click)="updateProfile()">Update Profile</button>
         <button ion-button block color="danger" (click)="logout()">Logout</button>
     </div>

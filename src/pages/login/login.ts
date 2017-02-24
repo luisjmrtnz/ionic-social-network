@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams, LoadingController, ToastController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFire } from 'angularfire2';
 
 import { CreateAccountPage } from '../create-account/create-account';
 import { AuthService } from '../../providers/auth.service';
+import { UtilService } from '../../providers/util.service';
 
 /*
   Generated class for the Login page.
@@ -28,7 +29,7 @@ export class LoginPage {
     public loadingCtrl: LoadingController,
     public af: AngularFire,
     public auth: AuthService,
-    public toastCtrl: ToastController) {
+    public util: UtilService) {
       this.userForm = this.formBuilder.group({
         email: ['', Validators.required],
         password: [''],
@@ -41,30 +42,18 @@ export class LoginPage {
 
   onLogin() {
     this.presentLoader();
-    
     this.auth.signin(this.userForm.value)
       .then(()=> {
-        this.userForm.reset();
+        console.log('loggedIn');
       }, 
       err => { 
-        this.loaderClose();
-        this.presentToast(err)
-        console.log(err);
+        this.closeLoader();
+        this.presentToast(err.message, "error");
       });
   }
   
-  presentToast(msg) {
-    if(msg.message){
-      let toast = this.toastCtrl.create({
-        message: msg.message,
-        duration: 3000,
-        showCloseButton: true,
-        closeButtonText: 'Got it!',
-        dismissOnPageChange: true,
-        cssClass: "error",
-      });
-      toast.present();
-    }
+  presentToast(msg, msgClass) {
+     this.util.getToast(msg, msgClass).present();
   }
   
   initLoader() {
@@ -79,7 +68,7 @@ export class LoginPage {
     this.loader.present();
   }
   
-  loaderClose() {
+  closeLoader() {
     this.loader.dismiss();
   }
 
