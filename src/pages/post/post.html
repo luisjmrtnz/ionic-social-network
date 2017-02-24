@@ -1,14 +1,14 @@
 <ion-header>
   <ion-toolbar primary>
     <ion-title>
-      Write Post
+      <ion-avatar *ngIf="user">
+        <img class="avatar-header" src="{{ user.avatar }}">
+      </ion-avatar>
     </ion-title>
     <ion-buttons end>
-      <button (click)="addImage()"><ion-icon name="image"></ion-icon></button>
       <ion-buttons start>
         <button ion-button (click)="dismiss()">
-          <span ion-text color="primary" showWhen="ios">Cancel</span>
-          <ion-icon name="md-close" showWhen="android, windows, core"></ion-icon>
+          <span class="button-inner">Cancel</span>
         </button>
       </ion-buttons>
     </ion-buttons>

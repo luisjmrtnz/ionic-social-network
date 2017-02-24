@@ -14,6 +14,7 @@ import { NavController, NavParams, ViewController, Platform} from 'ionic-angular
 export class PostPage {
   
   postContent: string;
+  user;
 
   constructor(
     public navCtrl: NavController, 
@@ -23,6 +24,7 @@ export class PostPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PostPage');
+    this.user = this.navParams.get('user');
   }
   
   dismiss() {

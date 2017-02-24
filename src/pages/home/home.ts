@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
+import 'rxjs/add/operator/do';
 
 import { PostPage } from '../post/post';
 /* Services */
 import { SocialService } from '../../providers/social.service';
+import { UserService } from '../../providers/user.service';
+import { UtilService } from '../../providers/util.service';
 
 @Component({
   selector: 'page-home',
@@ -16,14 +19,20 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-    public social: SocialService) {}
+    public social: SocialService,
+    public userService: UserService,
+    public util: UtilService) {}
     
   ionViewDidLoad() {
+    this.util.initLoader().present();
     this.feeds = this.social.getFeed();
+    this.feeds.do(this.util.dismissLoader());
   }
   
   openPost() {
-    let modal = this.modalCtrl.create(PostPage);
-    modal.present();
+    this.userService.getThisUser().subscribe(user => {
+      let modal = this.modalCtrl.create(PostPage, { user: user } );
+      modal.present();
+    });
   }
 }

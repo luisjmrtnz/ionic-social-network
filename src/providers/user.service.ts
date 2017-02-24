@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFire  } from 'angularfire2';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
 import { AuthService } from './auth.service';
 
@@ -14,6 +15,13 @@ export class UserService {
         
     getUser(uid: string) {
         return this.af.database.object(`/users/${uid}`);
+    }
+    
+    getThisUser() {
+        return this.auth.getAuth()
+            .filter(authInfo => authInfo !== null)
+            .map( authInfo => authInfo.auth.uid)
+            .flatMap( uid => this.getUser(uid));
     }
 
     searchUser(username) {
