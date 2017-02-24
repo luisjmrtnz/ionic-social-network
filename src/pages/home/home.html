@@ -4,11 +4,12 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content class="home" fullscreen>
+<ion-content class="home">
   <post *ngFor="let feed of feeds | async" [feed]="feed">
   </post>
+  
+  <ion-fab left bottom>
+    <button ion-fab color="primary"
+      (click)="openPost()"><ion-icon name="add"></ion-icon></button>
+  </ion-fab>
 </ion-content>
-
-<ion-footer>
-  <button (click)="openPost()" ion-button color="secondary" fab fab-right fab-bottom><ion-icon name="add"></ion-icon></button>
-</ion-footer>

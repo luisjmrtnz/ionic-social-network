@@ -1,10 +1,14 @@
 import { Injectable } from '@angular/core';
-import { ToastController } from 'ionic-angular';
+import { ToastController, LoadingController } from 'ionic-angular';
 
 @Injectable()
 
 export class UtilService {
-    constructor(private toastCtrl: ToastController){}
+    loader;
+    
+    constructor(
+        private toastCtrl: ToastController,
+        private loadingCtrl: LoadingController){}
     
     getToast(message, msgClass) {
         let toast = this.toastCtrl.create({
@@ -17,5 +21,21 @@ export class UtilService {
         });
         
         return toast;
+    }
+    
+    initLoader() {
+        return this.loader = this.loadingCtrl.create({
+          content: 'Please wait...',
+          duration: 3000,
+          dismissOnPageChange: true
+        });
+    }
+    
+    presentLoader() {
+        this.loader.present();
+    }
+    
+    dismissLoader() {
+        this.loader.dismiss();
     }
 }

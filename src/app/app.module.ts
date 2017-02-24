@@ -2,7 +2,6 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { PeoplePage } from '../pages/people/people';
-import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 import { LoginPage } from '../pages/login/login';
@@ -11,7 +10,7 @@ import { PostComponent } from '../components/post/post';
 import { CreateAccountPage } from '../pages/create-account/create-account';
 import { PostPage } from '../pages/post/post';
 import { UserProfilePage } from '../pages/user-profile/user-profile';
-import { TimeAgoPipe, FromUnixPipe } from 'angular2-moment';
+import { MomentModule } from 'angular2-moment';
 
 /* Third Party */
 import { AngularFireModule } from 'angularfire2';
@@ -27,7 +26,6 @@ import { UtilService } from '../providers/util.service';
   declarations: [
     MyApp,
     PeoplePage,
-    ContactPage,
     HomePage,
     TabsPage,
     LoginPage,
@@ -36,18 +34,16 @@ import { UtilService } from '../providers/util.service';
     PostComponent,
     PostPage,
     UserProfilePage,
-    TimeAgoPipe,
-    FromUnixPipe
   ],
   imports: [
     IonicModule.forRoot(MyApp, { swipeBackEnabled: true }),
-    AngularFireModule.initializeApp(FireBaseConfig)
+    AngularFireModule.initializeApp(FireBaseConfig),
+    MomentModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     PeoplePage,
-    ContactPage,
     HomePage,
     TabsPage,
     LoginPage,

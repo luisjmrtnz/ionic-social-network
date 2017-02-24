@@ -3,7 +3,6 @@ import {
   NavController, 
   NavParams, 
   AlertController, 
-  LoadingController,
   Platform } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
@@ -12,6 +11,7 @@ import 'rxjs/add/operator/switchMap';
 /* Services */
 import { AuthService } from '../../providers/auth.service';
 import { UserService } from '../../providers/user.service';
+import { UtilService } from '../../providers/util.service';
 
 /*
   Generated class for the Account page.
@@ -25,7 +25,6 @@ import { UserService } from '../../providers/user.service';
 })
 export class AccountPage {
   user = { name: '', about: ''};
-  loader;
 
   constructor(
     public navCtrl: NavController, 
@@ -33,12 +32,11 @@ export class AccountPage {
     public auth: AuthService,
     public userService: UserService,
     public alertCtrl: AlertController,
-    public loadingCtrl: LoadingController,
+    public util: UtilService,
     public platform: Platform) {}
 
   ionViewDidLoad() {
-    this.initLoader();
-    this.presentLoader();
+    this.util.initLoader().present();
   
     this.auth.getAuth()
       .filter(userInfo => userInfo != null)
@@ -46,7 +44,7 @@ export class AccountPage {
       .switchMap(uid => this.userService.getUser(uid))
       .subscribe(user => { 
         this.user = user;
-        this.closeLoader();
+        this.util.dismissLoader();
       });
   }
   
@@ -59,22 +57,6 @@ export class AccountPage {
       });
       alert.present();
     });
-  }
-  
-  initLoader() {
-    this.loader = this.loadingCtrl.create({
-      content: 'Please wait...',
-      duration: 3000,
-      dismissOnPageChange: true
-    });
-  }
-  
-  presentLoader() {
-    this.loader.present();
-  }
-  
-  closeLoader(){
-    this.loader.dismiss();
   }
   
   updateProfile() {

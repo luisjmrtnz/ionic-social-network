@@ -4,6 +4,7 @@
         <img *ngIf="(poster | async)?.avatar" [src]="(poster | async)?.avatar">
       </ion-avatar>
       <h2>{{(poster | async)?.name}}</h2>
+      <p>{{ (post | async)?.timestamp | amDateFormat:'LL' }}</p>
       <p><p>
     </ion-item>
 
@@ -12,8 +13,19 @@
     <ion-card-content>
       <p>{{(post | async)?.post}}</p>
     </ion-card-content>
+    
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>12 Likes</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          Added: {{(post | async)?.timestamp/1000 | amFromUnix | amTimeAgo }}
+        </ion-note>
+      </ion-col>
+    </ion-row>
 
-    <ion-item-divider>
-      {{(post | async)?.timestamp/1000 | amFromUnix | amTimeAgo }}
-    </ion-item-divider>
 </ion-card>

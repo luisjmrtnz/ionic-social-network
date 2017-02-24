@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/filter';
 import { NavController, ModalController } from 'ionic-angular';
 
 import { PostPage } from '../post/post';
 /* Services */
-import { AuthService } from '../../providers/auth.service';
 import { SocialService } from '../../providers/social.service';
 
 @Component({
@@ -20,14 +16,10 @@ export class HomePage {
   constructor(
     public navCtrl: NavController,
     public modalCtrl: ModalController,
-    public social: SocialService,
-    public auth: AuthService) {}
+    public social: SocialService) {}
     
   ionViewDidLoad() {
-    this.feeds = this.auth.getAuth()
-      .filter(userInfo => userInfo !== null)
-      .map(userInfo => userInfo.auth.uid)
-      .switchMap(uid => this.social.getFeed(uid));
+    this.feeds = this.social.getFeed();
   }
   
   openPost() {
