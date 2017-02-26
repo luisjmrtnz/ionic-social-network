@@ -4,6 +4,7 @@ import * as firebase from 'firebase';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/do';
 
 import { AuthService } from './auth.service';
 
@@ -15,6 +16,12 @@ export class SocialService {
         private af: AngularFire,
         private auth: AuthService){}
         
+    getUid() {
+        return this.auth.getAuth()
+            .filter(authInfo => authInfo !== null)
+            .map( authInfo => authInfo.auth.uid);
+    }
+    
     getPost(postID) {
         return this.af.database.object(`/posts/${postID}`);
     }
@@ -50,10 +57,13 @@ export class SocialService {
             
     }
     
-    getUid() {
-        return this.auth.getAuth()
-            .filter(authInfo => authInfo !== null)
-            .map( authInfo => authInfo.auth.uid);
+    followUser(user) {
+        let toFollowID = user.$key;
+        let currentUserID;
+        return this.getUid()
+                .do( uid => currentUserID = uid)
+                .switchMap( () => this.af.database.object(`/users/${currentUserID}/following`).update({[toFollowID]: true}))
+                .switchMap( () => this.af.database.object(`/users/${toFollowID}/followers`).update({[currentUserID]: true}));
     }
-        
+    
 }
