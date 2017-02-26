@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, ModalController } from 'ionic-angular';
 import 'rxjs/add/operator/do';
+import 'rxjs/add/operator/take';
 
 import { PostPage } from '../post/post';
 /* Services */
@@ -30,7 +31,7 @@ export class HomePage {
   }
   
   openPost() {
-    this.userService.getThisUser().subscribe(user => {
+    this.userService.getThisUser().take(1).subscribe(user => {
       let modal = this.modalCtrl.create(PostPage, { user: user } );
       modal.present();
     });
