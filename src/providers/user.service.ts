@@ -26,11 +26,13 @@ export class UserService {
 
     searchUser(username) {
         let query = {
-          orderByChild: 'username'
+          orderByChild: 'username',
+          limitToFirst: 10
         };
         // username is given
         if(username) {
-          query['equalTo'] = username;
+          query['startAt'] = username;
+          query['endAt'] = `${username}\uf8ff`;
         }
         let users = this.af.database.list('/users', {
           query: query

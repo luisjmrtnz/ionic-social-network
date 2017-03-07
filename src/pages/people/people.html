@@ -13,18 +13,18 @@
 </ion-header>
 
 <ion-content class="about">
-  <ion-searchbar (ionInput)="getUser($event)" placeholder="Search with username">
+  <ion-searchbar (ionInput)="search($event)" placeholder="Search with username">
   </ion-searchbar>
 
   <ion-list>
     <ion-item-sliding 
-      *ngFor="let user of users | async" [hidden]="uid === user?.$key"
+      *ngFor="let user of users | async" [hidden]="isThisUser(user?.$key)"
       #itemSliding>
       <ion-item text-wrap>
         <ion-avatar item-left>
           <img *ngIf="user?.avatar" [src]="user?.avatar">
         </ion-avatar>
-        <h2>{{(user)?.name}}</h2>
+        <h2>{{(user)?.username}}</h2>
       </ion-item>
       <ion-item-options side="left">
         <button ion-button color="primary" (click)="userProfile(user, itemSliding)">
