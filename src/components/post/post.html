@@ -1,8 +1,9 @@
 <ion-card>
     <ion-item>
-      <ion-avatar item-left>
-        <img *ngIf="(poster | async)?.avatar" [src]="(poster | async)?.avatar">
+      <ion-avatar item-left *ngIf="(poster | async)?.avatar">
+        <img [src]="(poster | async)?.avatar">
       </ion-avatar>
+      <ion-icon *ngIf="!(poster | async)?.avatar" secondary item-left name="person"></ion-icon>
       <h2>{{(poster | async)?.name}}</h2>
       <p>{{ (post | async)?.timestamp | amDateFormat:'LL' }}</p>
       <p><p>

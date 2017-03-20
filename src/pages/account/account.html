@@ -15,9 +15,8 @@
 <ion-content>
   <ion-card class="img-card" padding>
       <img *ngIf="user?.avatar" [src]="user?.avatar">
-      <div>
-        <button ion-button block color="primary">Update Picture</button>
-      </div>
+      <input type="file" name="file" id="file" class="inputfile" #imageInput accept="image/*" (change)="uploadImage()">
+      <label ion-button block color='primary' for="file">Select Photo</label>
   </ion-card>
   <ion-card padding>
     <ion-item>

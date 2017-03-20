@@ -3,3 +3,12 @@
     border-radius:50%;
     margin:0 auto;
 }
+
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}

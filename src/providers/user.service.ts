@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFire  } from 'angularfire2';
+import * as firebase from 'firebase';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/map';
@@ -86,5 +87,33 @@ export class UserService {
                return user.set(userData);
             });
    }
+   
+    updateProfilePicture(user , avatar?: string) {
+        return this.auth.getAuth()
+            .switchMap( () => this.updateRef(user, avatar));
+        
+    }
+    
+    updateRef(user , avatar?:string) {
+        let newUser: any = {
+            email: user.email,
+            name: user.name,
+            username: user.username,
+            about: user.about
+        };
+        
+        if(avatar) {
+            newUser.avatar = avatar;
+        }
+        
+        let userRef= this.af.database.object(`/users/${user.$key}`).update(newUser);
+        
+        return userRef;
+    }
+    
+    uploadImage(image: File, userInfo) {
+        let filename = userInfo.auth.uid + '.jpg';
+        return firebase.storage().ref(`/profile/${filename}`).put(image);
+    }
    
 }

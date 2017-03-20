@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild} from '@angular/core';
 import { 
   NavController, 
   NavParams, 
@@ -25,6 +25,9 @@ import { UtilService } from '../../providers/util.service';
 })
 export class AccountPage {
   user = { name: '', about: ''};
+  @ViewChild('imageInput') imageInput: ElementRef;
+
+
 
   constructor(
     public navCtrl: NavController, 
@@ -64,6 +67,17 @@ export class AccountPage {
       .subscribe(
         () => this.util.getToast('Updated!', 'success').present(), 
         err => this.util.getToast(err, 'error'));
+  }
+  
+  uploadImage() {
+    let image = this.imageInput.nativeElement.files[0];
+    
+    if(image.type.match('image.*')){
+        this.auth.getAuth()
+            .switchMap(userInfo => this.userService.uploadImage(image, userInfo))
+            .switchMap(imgRef => this.userService.updateProfilePicture(this.user, imgRef.downloadURL))
+            .subscribe(() => console.log('user updated'));
+    }
   }
   
 }
