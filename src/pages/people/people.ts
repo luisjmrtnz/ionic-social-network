@@ -4,6 +4,7 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/take';
+import 'rxjs/add/operator/do';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { UserService } from '../../providers/user.service';
@@ -24,21 +25,27 @@ export class PeoplePage {
   users;
   currentUser;
   searchUserStream;
+  searching: boolean;
   
   constructor(
     public navCtrl: NavController, 
     public navParams: NavParams,
     private userService: UserService) {
       this.searchUserStream = new BehaviorSubject("");
+      this.searching = true;
     }
 
   ionViewDidLoad() {
     this.userService.getThisUser().take(1)
       .subscribe(user => this.currentUser = user);
+      
     this.users = this.searchUserStream
       .debounceTime(300)
       .distinctUntilChanged()
       .switchMap((user: string) => this.userService.searchUser(user));
+      
+    this.users.subscribe( users => this.searching = false);
+      
   }
   
   userProfile(user, itemSliding: ItemSliding) {
@@ -47,6 +54,9 @@ export class PeoplePage {
   }
   
   search($event) {
+    if(!this.searching) {
+      this.searching = true;
+    }
     let username = $event.target.value;
     this.searchUserStream.next(username);
   }

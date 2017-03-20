@@ -15,8 +15,9 @@
 <ion-content class="about">
   <ion-searchbar (ionInput)="search($event)" placeholder="Search with username">
   </ion-searchbar>
-
+  
   <ion-list>
+    <ion-item *ngIf="searching"><ion-spinner item-left></ion-spinner> Searching...</ion-item>
     <ion-item-sliding 
       *ngFor="let user of users | async" [hidden]="isThisUser(user?.$key)"
       #itemSliding>
