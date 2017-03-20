@@ -61,7 +61,9 @@ export class AccountPage {
   
   updateProfile() {
     this.userService.updateProfile(this.user)
-      .subscribe(value => console.log(`updated ${value}`), err => console.log(err));
+      .subscribe(
+        () => this.util.getToast('Updated!', 'success').present(), 
+        err => this.util.getToast(err, 'error'));
   }
   
 }

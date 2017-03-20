@@ -77,6 +77,14 @@ export class UserService {
    }
    
    createUser(userData) {
-       
+    return this.auth.getAuth()
+            .filter(authInfo => authInfo !== null)
+            .map( authInfo => authInfo.auth.uid)
+            .switchMap( uid => {
+               let url = `/users/${uid}`;
+               let user = this.af.database.object(url);
+               return user.set(userData);
+            });
    }
+   
 }

@@ -52,7 +52,11 @@ export class CreateAccountPage {
           } else {
             return true;
           }
-        }).subscribe(value => console.log(value), err => console.log(`${err} here`));
+        })
+        .switchMap( () => this.userService.createUser(newUser))
+        .take(1).subscribe( 
+          value => this.presentToast('Your user has been successfully created', 'success'),
+          err => this.presentToast(err, 'error'));
   }
   
   presentToast(msg, msgClass) {
