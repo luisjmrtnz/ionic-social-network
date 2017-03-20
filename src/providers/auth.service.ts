@@ -22,8 +22,9 @@ export class AuthService {
       });
   }
   
-  createUser(credentails) {
-   return this.af.auth.createUser(credentails);
+  createUser(account) {
+    let credentails = { email: account.email, password: account.password };
+    return this.af.auth.createUser(credentails);
   };
   
   logout() {

@@ -25,9 +25,7 @@ export class HomePage {
     public util: UtilService) {}
     
   ionViewDidLoad() {
-    this.util.initLoader().present();
     this.feeds = this.social.getFeed();
-    this.feeds.do(this.util.dismissLoader());
   }
   
   openPost() {

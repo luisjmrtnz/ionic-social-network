@@ -24,18 +24,17 @@ export class UtilService {
     }
     
     initLoader() {
-        return this.loader = this.loadingCtrl.create({
+        this.loader = this.loadingCtrl.create({
           content: 'Please wait...',
-          duration: 3000,
           dismissOnPageChange: true
         });
     }
     
     presentLoader() {
-        this.loader.present();
+        this.loader.present().catch(() => "Present Error");
     }
     
     dismissLoader() {
-        this.loader.dismiss();
+        this.loader.dismiss().catch(() => "Dismiss Error");
     }
 }

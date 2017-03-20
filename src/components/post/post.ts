@@ -1,5 +1,5 @@
 import { Component, Input, OnInit} from '@angular/core';
-import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/take';
 import 'rxjs/add/operator/do';
 
 /* Services */
@@ -27,9 +27,9 @@ export class PostComponent implements OnInit {
 
   ngOnInit() {
     let postID = this.feed.$key;
-    console.log(postID);
     this.post = this.socialService.getPost(postID);
-    this.post.subscribe(post => console.log(post));
-    this.poster = this.post.switchMap(post => this.userService.getUser(post.from));
+    this.post.take(1).subscribe(post => {
+      this.poster = this.userService.getUser(post.from);
+    });
   }
 }

@@ -13,7 +13,7 @@
 </ion-header>
 
 <ion-content padding>
-    <form [formGroup]="createForm">
+    <form [formGroup]="accountForm">
         <ion-list>
             <ion-item>
                 <ion-label floating>Username</ion-label>
@@ -43,7 +43,9 @@
         </ion-list>
         
         <div padding>
-            <button ion-button color="primary" block (click)="createAccount()">Create Account</button>
+            <button ion-button color="primary" block 
+                (click)="createAccount()"
+                [disabled]="!accountForm.valid">Create Account</button>
         </div>
     </form>
 </ion-content>

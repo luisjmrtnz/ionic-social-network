@@ -36,15 +36,15 @@ export class AccountPage {
     public platform: Platform) {}
 
   ionViewDidLoad() {
-    this.util.initLoader().present();
-  
-    this.auth.getAuth()
-      .filter(userInfo => userInfo != null)
-      .map(userInfo => userInfo.auth.uid)
-      .switchMap(uid => this.userService.getUser(uid))
-      .subscribe(user => { 
+    this.util.initLoader();
+    this.util.presentLoader();
+    
+    this.userService.getThisUser()
+      .subscribe(user =>  {
         this.user = user;
-        this.util.dismissLoader();
+          this.util.dismissLoader(); 
+      }, err => {
+        console.log(err);
       });
   }
   

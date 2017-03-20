@@ -28,7 +28,7 @@ export class SocialService {
     
     getFeed() {
         return this.getUid()
-            .switchMap( uid => this.af.database.list(`/users/${uid}/feed`));
+            .flatMap( uid => this.af.database.list(`/users/${uid}/feed`));
     }
     
     sendPost(postData) {

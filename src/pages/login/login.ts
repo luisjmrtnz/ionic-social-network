@@ -36,40 +36,24 @@ export class LoginPage {
       });
     }
     
-  ionViewDidLoad() {
-    this.initLoader();
-  }
+  ionViewDidLoad() {}
 
   onLogin() {
-    this.presentLoader();
+    this.util.initLoader();
+    this.util.presentLoader();
     this.auth.signin(this.userForm.value)
       .then(()=> {
+        this.util.dismissLoader();
         console.log('loggedIn');
       }, 
       err => { 
-        this.closeLoader();
+        this.util.dismissLoader();
         this.presentToast(err.message, "error");
       });
   }
   
   presentToast(msg, msgClass) {
      this.util.getToast(msg, msgClass).present();
-  }
-  
-  initLoader() {
-    this.loader = this.loadingCtrl.create({
-      content: 'Please wait...',
-      duration: 3000,
-      dismissOnPageChange: true
-    });
-  }
-  
-  presentLoader() {
-    this.loader.present();
-  }
-  
-  closeLoader() {
-    this.loader.dismiss();
   }
 
   createAccount() {

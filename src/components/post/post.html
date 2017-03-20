@@ -8,8 +8,6 @@
       <p><p>
     </ion-item>
 
-    <img *ngIf="(post| async)?.image" [src]="(post | async)?.image">
-
     <ion-card-content>
       <p>{{(post | async)?.post}}</p>
     </ion-card-content>
