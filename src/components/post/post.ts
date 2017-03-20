@@ -5,6 +5,7 @@ import 'rxjs/add/operator/do';
 /* Services */
 import { SocialService } from '../../providers/social.service';
 import { UserService } from '../../providers/user.service';
+import { UtilService } from '../../providers/util.service';
 /*
   Generated class for the Post component.
 
@@ -23,7 +24,8 @@ export class PostComponent implements OnInit {
   
   constructor(
     private userService: UserService, 
-    private socialService: SocialService ){}
+    private socialService: SocialService,
+    private util: UtilService){}
 
   ngOnInit() {
     let postID = this.feed.$key;
@@ -31,5 +33,12 @@ export class PostComponent implements OnInit {
     this.post.take(1).subscribe(post => {
       this.poster = this.userService.getUser(post.from);
     });
+  }
+  
+  deletePost() {
+    this.socialService.deletePost(this.feed.$key)
+      .take(1).subscribe( 
+        () => this.util.getToast('Your post has been deleted', 'success').present(),
+        err => this.util.getToast(err, 'error').present());
   }
 }

@@ -48,6 +48,17 @@ export class SocialService {
         return this.af.database.list('/posts').push(post);
     }
     
+    deletePost(postID) {
+       return this.getUid()
+                .switchMap(uid => {
+                    let userFeed = this.af.database.object(`/users/${uid}/feed/${postID}`);
+                    return userFeed.remove();
+                })
+                .switchMap( () => {
+                    return this.af.database.list('/posts').remove(postID);
+                });
+    }
+    
     updateUserFeed(postKey) {
        return this.getUid()
             .switchMap(uid => {

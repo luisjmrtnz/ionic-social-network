@@ -20,6 +20,12 @@
           <div>12 Likes</div>
         </button>
       </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small id="delete" (click)="deletePost()">
+          <ion-icon name="trash" color="danger"></ion-icon>
+          Delete
+        </button>
+      </ion-col>
       <ion-col center text-center>
         <ion-note>
           Added: {{(post | async)?.timestamp/1000 | amFromUnix | amTimeAgo }}
