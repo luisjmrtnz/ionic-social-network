@@ -7,8 +7,8 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-      <img *ngIf="user" [src]="user.avatar">
+  <ion-card *ngIf="user?.avatar">
+      <img [src]="user.avatar">
   </ion-card>
 
   <ion-card *ngIf="user">

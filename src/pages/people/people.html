@@ -21,9 +21,10 @@
       *ngFor="let user of users | async" [hidden]="isThisUser(user?.$key)"
       #itemSliding>
       <ion-item text-wrap>
-        <ion-avatar item-left>
-          <img *ngIf="user?.avatar" [src]="user?.avatar">
+        <ion-avatar *ngIf="user?.avatar" item-left>
+          <img [src]="user?.avatar">
         </ion-avatar>
+        <ion-icon *ngIf="!user?.avatar" secondary item-left name="person"></ion-icon>
         <h2>{{(user)?.username}}</h2>
       </ion-item>
       <ion-item-options side="left">

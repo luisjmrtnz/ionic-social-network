@@ -66,4 +66,14 @@ export class SocialService {
                 .switchMap( () => this.af.database.object(`/users/${toFollowID}/followers`).update({[currentUserID]: true}));
     }
     
+    unFollowUser(user) {
+        let toUnFollowID = user.$key;
+        let currentUserID;
+        
+        return this.getUid()
+            .do(uid => currentUserID = uid)
+            .switchMap( () => this.af.database.object(`/users/${currentUserID}/following/${toUnFollowID}`).remove())
+            .switchMap( () => this.af.database.object(`/users/${toUnFollowID}/followers/${currentUserID}`).remove());
+    }
+    
 }

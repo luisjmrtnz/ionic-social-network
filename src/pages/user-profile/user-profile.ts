@@ -6,6 +6,7 @@ import 'rxjs/add/operator/do';
 
 import { UserService } from '../../providers/user.service';
 import { SocialService } from '../../providers/social.service';
+import { UtilService } from '../../providers/util.service';
 
 
 /*
@@ -27,7 +28,8 @@ export class UserProfilePage {
     public navCtrl: NavController, 
     public navParams: NavParams,
     public userService: UserService,
-    public socialService: SocialService) {}
+    public socialService: SocialService,
+    public util: UtilService) {}
 
   ionViewDidLoad() {
     let uid = this.navParams.get('uid');
@@ -35,18 +37,31 @@ export class UserProfilePage {
     this.userService.getUser(uid)
         .do(user => this.user = user)
         .switchMap(() => this.userService.getThisUser())
-        .take(1).subscribe(user => this.loggedID = user.$key );
+        .subscribe(user => this.loggedID = user.$key );
   }
   
   followUser() {
     this.socialService.followUser(this.user)
-      .take(1).subscribe(() => console.log('You have succesfully follow this person!'));
+      .take(1).subscribe(() => {
+        this.util.getToast(`You have successfully followed ${this.user.username}`, 'success').present();
+      });
   }
   
   isFollowed() {
-    let followers = this.user.followers;
-    let isFollowed = (this.loggedID in followers) ? true : false;
-    return isFollowed;
+    if(this.user.followers) {
+      let followers = this.user.followers;
+      let isFollowed = (this.loggedID in followers) ? true : false;
+      return isFollowed;
+    } else {
+      return false;
+    }
+  }
+  
+  unFollowUser(user) {
+    this.socialService.unFollowUser(this.user)
+      .take(1).subscribe(() => {
+        this.util.getToast(`You have successfully unfollowed ${this.user.username}`, 'success').present();
+      });
   }
 
 }
